@@ -5,20 +5,17 @@
 #include "InputTriggers.h"
 #include <Interaction/EnemyInterface.h>
 
-AAuraPlayerController::AAuraPlayerController()
-{
+AAuraPlayerController::AAuraPlayerController() {
 	bReplicates = true;
 }
 
-void AAuraPlayerController::PlayerTick(float DeltaTime)
-{
+void AAuraPlayerController::PlayerTick(float DeltaTime) {
 	Super::PlayerTick(DeltaTime);
 
 	CursorTrace();
 }
 
-void AAuraPlayerController::BeginPlay()
-{
+void AAuraPlayerController::BeginPlay() {
 	Super::BeginPlay();
 
 	check(MappingContext);
@@ -37,8 +34,7 @@ void AAuraPlayerController::BeginPlay()
 	SetInputMode(InputModeData);
 }
 
-void AAuraPlayerController::SetupInputComponent()
-{
+void AAuraPlayerController::SetupInputComponent() {
 	Super::SetupInputComponent();
 
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
@@ -46,24 +42,21 @@ void AAuraPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
 }
 
-void AAuraPlayerController::Move(const FInputActionValue& ActionValue)
-{
+void AAuraPlayerController::Move(const FInputActionValue& ActionValue) {
 	const FVector2D InputAxisVector = ActionValue.Get<FVector2D>();
 	const FRotator Yaw = {0.f, GetControlRotation().Yaw, 0.f};
 
 	const FVector ForwardDirection = FRotationMatrix(Yaw).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(Yaw).GetUnitAxis(EAxis::Y);
 
-	if (APawn* ControlledPawn = GetPawn<APawn>())
-	{
+	if (APawn* ControlledPawn = GetPawn<APawn>()) {
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
 
 	}
 }
 
-void AAuraPlayerController::CursorTrace()
-{
+void AAuraPlayerController::CursorTrace() {
 	FHitResult CursorHit;
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 
@@ -72,15 +65,13 @@ void AAuraPlayerController::CursorTrace()
 	LastActor = ThisActor;
 	ThisActor = CursorHit.GetActor();
 
-	if (LastActor != ThisActor)
-	{
+	if (LastActor != ThisActor) {
 		if (LastActor)
 			LastActor->UnHighlightActor();
 		if (ThisActor)
 			ThisActor->HighlightActor();
 	}
-	else if (ThisActor)
-	{
+	else if (ThisActor) {
 		ThisActor->HighlightActor();
 	}
 }

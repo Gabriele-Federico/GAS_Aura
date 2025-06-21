@@ -10,8 +10,7 @@ struct FInputActionValue;
 class IEnemyInterface;
 
 UCLASS()
-class AURA_API AAuraPlayerController : public APlayerController
-{
+class AURA_API AAuraPlayerController : public APlayerController {
 	GENERATED_BODY()
 public:
 	AAuraPlayerController();
@@ -28,7 +27,7 @@ private:
 
 	void CursorTrace();
 
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> MappingContext;
 
 	UPROPERTY(EditAnywhere, Category = "Input")

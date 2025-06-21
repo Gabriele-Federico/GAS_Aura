@@ -1,7 +1,6 @@
 #include "Character/AuraCharacterBase.h"
 
-AAuraCharacterBase::AAuraCharacterBase()
-{
+AAuraCharacterBase::AAuraCharacterBase() {
 	PrimaryActorTick.bCanEverTick = true;
 
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
@@ -10,10 +9,17 @@ AAuraCharacterBase::AAuraCharacterBase()
 
 }
 
-void AAuraCharacterBase::BeginPlay()
-{
+UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const {
+	return AbilitySystemComponent;
+}
+
+UAttributeSet* AAuraCharacterBase::GetAttributeSet() const {
+	return AttributeSet;
+}
+
+void AAuraCharacterBase::BeginPlay() {
 	Super::BeginPlay();
-	
+
 }
 
 

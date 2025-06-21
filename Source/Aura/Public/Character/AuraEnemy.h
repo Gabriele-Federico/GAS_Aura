@@ -7,12 +7,13 @@
 #include "AuraEnemy.generated.h"
 
 UCLASS()
-class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
-{
+class AURA_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface {
 	GENERATED_BODY()
 
 public:
 	AAuraEnemy();
+
+	void BeginPlay() override;
 
 	void HighlightActor() override;
 
